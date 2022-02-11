@@ -8,10 +8,11 @@ fn main() -> PyResult<()> {
                             
         syspath.insert(0, ".")?;
 
-        let sample_script_module = py.import("py.ml_script")?;
+        let sample_script_module = py.import("pysrc.model")?;
 
-        sample_script_module.getattr("train_model")?
-                            .call0()?;
+        let num_epochs = 2;
+        sample_script_module.getattr("train_evaluate_model")?
+                            .call1((num_epochs,))?;
         
         Ok(())
     })
